@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة دراسة وإتقان تعلم الآلة والتعرف على الأنماط | ML Master Platform</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts for crisp Arabic & Code display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=JetBrains+Mono:wght@400;600&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="theme-dark">
+  <!-- Reading Progress Bar -->
+  <div id="scroll-progress-container">
+    <div id="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Main App Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <div class="brand-icon">🤖</div>
+        <div class="brand-text">
+          <h1>تعلم الآلة والتعرف على الأنماط</h1>
+          <p class="subtitle">Machine Learning & Pattern Recognition • أ.د. محمد الموجي - جامعة المنصورة</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Global Search Bar -->
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="global-search" placeholder="ابحث في المحاضرات الأربع، المصطلحات، القوانين..." autocomplete="off">
+          <button id="clear-search" class="clear-btn hidden">&times;</button>
+          <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+        </div>
+
+        <!-- Overall Progress Pill -->
+        <div class="user-progress-badge" title="نسبة الإنجاز الإجمالية في المنهج">
+          <span class="badge-label">مستوى الإنجاز:</span>
+          <div class="mini-progress-track">
+            <div id="global-progress-fill" style="width: 0%;"></div>
+          </div>
+          <span id="global-progress-text" class="badge-val">0%</span>
+        </div>
+
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle-btn" class="theme-toggle-btn" title="تبديل الوضع الليلي / الفاتح">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <button class="nav-tab active" data-tab="overview">
+          <span class="tab-icon">🏠</span>
+          <span class="tab-title">نظرة عامة والمنهج</span>
+        </button>
+        <button class="nav-tab" data-tab="lec1">
+          <span class="tab-icon">🌐</span>
+          <span class="tab-title">المحاضرة 1: مدخل وتصنيف ML</span>
+          <span class="tab-badge" id="badge-lec1">0%</span>
+        </button>
+        <button class="nav-tab" data-tab="lec2">
+          <span class="tab-icon">🚀</span>
+          <span class="tab-title">المحاضرة 2: مشروع ML متكامل</span>
+          <span class="tab-badge" id="badge-lec2">0%</span>
+        </button>
+        <button class="nav-tab" data-tab="lec3">
+          <span class="tab-icon">🎯</span>
+          <span class="tab-title">المحاضرة 3: التصنيف ومقاييس الأداء</span>
+          <span class="tab-badge" id="badge-lec3">0%</span>
+        </button>
+        <button class="nav-tab" data-tab="lec4">
+          <span class="tab-icon">⚙️</span>
+          <span class="tab-title">المحاضرة 4: تدريب النماذج والتدرج</span>
+          <span class="tab-badge" id="badge-lec4">0%</span>
+        </button>
+        <button class="nav-tab special-tab" data-tab="flashcards">
+          <span class="tab-icon">🎴</span>
+          <span class="tab-title">بطاقات الحفظ السريع</span>
+        </button>
+        <button class="nav-tab special-tab" data-tab="lab">
+          <span class="tab-icon">🧪</span>
+          <span class="tab-title">المختبر التفاعلي والمحاكيات</span>
+        </button>
+        <button class="nav-tab exam-tab" data-tab="exam">
+          <span class="tab-icon">🏆</span>
+          <span class="tab-title">الامتحان الشامل المحاكي</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- App Main Content Container -->
+  <main class="main-content" id="main-content">
+    
+    <!-- ==================== TAB 0: OVERVIEW & STUDY PLAN ==================== -->
+    <section id="tab-overview" class="tab-pane active">
+      <div class="hero-banner">
+        <div class="hero-content">
+          <div class="hero-tag">جامعة المنصورة • كلية الحاسبات والمعلومات • قسم تكنولوجيا المعلومات</div>
+          <h2>دليلك التفاعلي الشامل لفهم وحفظ محاضرات تعلم الآلة</h2>
+          <p>
+            تم تصميم هذه المنصة خصيصاً لمساعدتك على <strong>الفهم العميق</strong> و<strong>الحفظ السريع والدقيق</strong> لكل تفاصيل ومصطلحات وقوانين المحاضرات الأربع المقررة في مادة <em>Machine Learning & Pattern Recognition</em> للدكتور محمد الموجي، مع اختبارات فورية بعد كل جزئية لقياس استيعابك وتثبيت المعلومة!
+          </p>
+          <div class="hero-stats">
+            <div class="stat-card">
+              <span class="stat-number">4</span>
+              <span class="stat-label">محاضرات مكثفة</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">19</span>
+              <span class="stat-label">قسماً تعليمياً مدعماً</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">70+</span>
+              <span class="stat-label">سؤال اختبار مرحلي وشامل</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">45+</span>
+              <span class="stat-label">بطاقة فلاش كارد للحفظ</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">3</span>
+              <span class="stat-label">محاكيات تفاعلية حية</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Roadmaps Grid -->
+      <div class="content-section">
+        <h3 class="section-heading"><span class="heading-icon">🗺️</span> خريطة المنهج وخطة الدراسة السريعة</h3>
+        <div class="lectures-grid">
+          
+          <!-- Card Lec 1 -->
+          <div class="lecture-summary-card card-glow-1">
+            <div class="card-header-badge">المحاضرة 01</div>
+            <h4>مشهد وتصنيف تعلم الآلة (The ML Landscape)</h4>
+            <p class="card-desc">التعريفات الأساسية (سامويل، ميتشل)، لماذا نستخدم ML، التطبيقات الـ 13 ونماذجها، أنواع الأنظمة (إشراف، دفعات، نماذج)، والتحديات (بيانات سيئة، خوارزميات سيئة: Overfitting & Underfitting).</p>
+            <ul class="key-topics-list">
+              <li>📌 تعريف توم ميتشل (E, T, P) ومثال الـ Spam Filter</li>
+              <li>📌 الفرق بين Supervised, Unsupervised, Semi-supervised, RL</li>
+              <li>📌 Batch vs Online Learning ومفهوم Out-of-core</li>
+              <li>📌 حلول الـ Overfitting والتنظيم (Regularization)</li>
+            </ul>
+            <div class="card-footer">
+              <button class="btn btn-primary" onclick="switchTab('lec1')">ابدأ دراسة المحاضرة 1 ⬅️</button>
+            </div>
+          </div>
+
+          <!-- Card Lec 2 -->
+          <div class="lecture-summary-card card-glow-2">
+            <div class="card-header-badge">المحاضرة 02</div>
+            <h4>مشروع ML عملي متكامل (End-to-End ML Project)</h4>
+            <p class="card-desc">الخطوات الثمانية للمشروع، دراسة مسألة أسعار منازل كاليفورنيا، مقاييس الخطأ (RMSE vs MAE)، المعاينة الطبقية (Stratified Sampling)، استكشاف البيانات وهندسة الخصائص، وتجهيز البيانات والضبط الفائق.</p>
+            <ul class="key-topics-list">
+              <li>📌 الخطوات الثمانية بترتيبها للحفظ</li>
+              <li>📌 مقارنة المعايير $l_2$ norm (RMSE) و $l_1$ norm (MAE)</li>
+              <li>📌 معالجة النواقص (`SimpleImputer`) والترميز (`OneHotEncoder`)</li>
+              <li>📌 Min-max scaling مقابل Standardization، و `GridSearchCV`</li>
+            </ul>
+            <div class="card-footer">
+              <button class="btn btn-primary" onclick="switchTab('lec2')">ابدأ دراسة المحاضرة 2 ⬅️</button>
+            </div>
+          </div>
+
+          <!-- Card Lec 3 -->
+          <div class="lecture-summary-card card-glow-3">
+            <div class="card-header-badge">المحاضرة 03</div>
+            <h4>التصنيف ومقاييس الأداء (Classification)</h4>
+            <p class="card-desc">مجموعة بيانات MNIST، مصنف الـ SGD الثنائي لكشف الرقم 5، مصفوفة الارتباك (Confusion Matrix)، القوانين العشرة الكاملة لمقاييس الأداء، مقايضة Precision/Recall، ومنحنى ROC، واستراتيجيات OvR و OvO.</p>
+            <ul class="key-topics-list">
+              <li>📌 لماذا تفشل الدقة في البيانات غير المتوازنة (Skewed)؟</li>
+              <li>📌 القوانين العشرة: Precision, Recall, F1-score, Specificity, MCC</li>
+              <li>📌 منحنى ROC ومساحة AUC وقاعدة المقارنة مع PR Curve</li>
+              <li>📌 استراتيجيات OvR مقابل OvO وقانون $N(N-1)/2$</li>
+            </ul>
+            <div class="card-footer">
+              <button class="btn btn-primary" onclick="switchTab('lec3')">ابدأ دراسة المحاضرة 3 ⬅️</button>
+            </div>
+          </div>
+
+          <!-- Card Lec 4 -->
+          <div class="lecture-summary-card card-glow-4">
+            <div class="card-header-badge">المحاضرة 04</div>
+            <h4>تدريب النماذج والتدرج التنازلي (Training Models)</h4>
+            <p class="card-desc">الانحدار الخطي الرياضي، المعادلة المغلقة (Normal Equation) ومقارنتها بـ SVD، التعقيد الحسابي، وخوارزمية التدرج التنازلي (Gradient Descent)، والأنواع الثلاثة (Batch, SGD, Mini-batch) والـ Simulated Annealing.</p>
+            <ul class="key-topics-list">
+              <li>📌 المعادلة الطبيعية $\hat{\theta} = (X^T X)^{-1} X^T y$ وتفوق SVD عليها</li>
+              <li>📌 دالة التكلفة المحدبة (Convex) وانعدام الصغرى المحلية</li>
+              <li>📌 تأثير معدل التعلم $\eta$ والتحجيم السليم على سرعة التقارب</li>
+              <li>📌 جدول المقارنة الشامل النهائي بين الخوارزميات الخمس</li>
+            </ul>
+            <div class="card-footer">
+              <button class="btn btn-primary" onclick="switchTab('lec4')">ابدأ دراسة المحاضرة 4 ⬅️</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Study Features Banner -->
+      <div class="study-features-banner">
+        <h3>💡 كيف تستفيد بأقصى درجة من هذا الموقع لتحصيل الدرجة النهائية؟</h3>
+        <div class="steps-container">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <h5>اقرأ الشرح المعمق</h5>
+            <p>لكل محاضرة أقسام واضحة تجمع الشرح العربي المبسط مع المصطلحات الإنجليزية المطابقة لسلايدات الدكتور الموجي.</p>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <h5>احفظ بالبطاقات الفلاشية</h5>
+            <p>انتقل لقسم الفلاش كارد لتثبيت القوانين، التعريفات، والأسماء التي تتكرر حرفياً في الامتحانات.</p>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <h5>جرّب في المختبر التفاعلي</h5>
+            <p>استخدم حاسبة مصفوفة الارتباك ومحاكي الانحدار لترى تأثير الأرقام والمعاملات عملياً بأم عينك.</p>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <h5>اختبر نفسك فوراً</h5>
+            <p>حل كويز كل جزئية للحصول على تصحيح وشرح فوري، ثم خض الامتحان النهائي الشامل لتقييم جاهزيتك.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== LECTURE CONTAINER (1, 2, 3, 4 dynamically rendered/tabbed) ==================== -->
+    <section id="tab-lec1" class="tab-pane lecture-view">
+      <div class="lecture-header-hero">
+        <div class="lec-meta-tag">L01 • Lecture 1</div>
+        <h2>The Machine Learning Landscape</h2>
+        <p class="lec-arabic-title">مشهد وتصنيف خوارزميات تعلم الآلة، التطبيقات العملية، والتحديات الأساسية</p>
+        <div class="lecture-quick-stats">
+          <span>📑 52 شريحة مغطاة بالكامل</span>
+          <span>⚡ 5 أقسام رئيسية تفاعلية</span>
+          <span>🎯 اختبار خاص لكل قسم</span>
+        </div>
+      </div>
+      <div class="lecture-body" id="lec1-container">
+        <!-- Rendered via JS from lectures-data.js -->
+      </div>
+    </section>
+
+    <section id="tab-lec2" class="tab-pane lecture-view">
+      <div class="lecture-header-hero">
+        <div class="lec-meta-tag">L02 • Lecture 2</div>
+        <h2>End-to-End Machine Learning Project</h2>
+        <p class="lec-arabic-title">خطوات مشروع تعلم الآلة المتكامل دراسة حالة تفصيلية لأسعار المنازل في كاليفورنيا</p>
+        <div class="lecture-quick-stats">
+          <span>📑 56 شريحة مغطاة بالكامل</span>
+          <span>⚡ 5 أقسام رئيسية تفاعلية</span>
+          <span>🎯 اختبار خاص لكل قسم</span>
+        </div>
+      </div>
+      <div class="lecture-body" id="lec2-container">
+        <!-- Rendered via JS from lectures-data.js -->
+      </div>
+    </section>
+
+    <section id="tab-lec3" class="tab-pane lecture-view">
+      <div class="lecture-header-hero">
+        <div class="lec-meta-tag">L03 • Lecture 3</div>
+        <h2>Classification & Performance Measures</h2>
+        <p class="lec-arabic-title">التصنيف الثنائي والمتعدد، بيانات MNIST، مصفوفة الارتباك، والقوانين العشرة للتقييم</p>
+        <div class="lecture-quick-stats">
+          <span>📑 49 شريحة مغطاة بالكامل</span>
+          <span>⚡ 5 أقسام رئيسية تفاعلية</span>
+          <span>🎯 اختبار خاص لكل قسم</span>
+        </div>
+      </div>
+      <div class="lecture-body" id="lec3-container">
+        <!-- Rendered via JS from lectures-data.js -->
+      </div>
+    </section>
+
+    <section id="tab-lec4" class="tab-pane lecture-view">
+      <div class="lecture-header-hero">
+        <div class="lec-meta-tag">L04 • Lecture 4</div>
+        <h2>Training Models & Gradient Descent</h2>
+        <p class="lec-arabic-title">تدريب النماذج، الانحدار الخطي، المعادلة الطبيعية، SVD، وخوارزميات التدرج التنازلي</p>
+        <div class="lecture-quick-stats">
+          <span>📑 36 شريحة مغطاة بالكامل</span>
+          <span>⚡ 4 أقسام رئيسية تفاعلية</span>
+          <span>🎯 اختبار خاص لكل قسم</span>
+        </div>
+      </div>
+      <div class="lecture-body" id="lec4-container">
+        <!-- Rendered via JS from lectures-data.js -->
+      </div>
+    </section>
+
+    <!-- ==================== TAB: FLASHCARDS ==================== -->
+    <section id="tab-flashcards" class="tab-pane">
+      <div class="tool-view-header">
+        <span class="tool-badge">🎴 نظام الحفظ السريع والتكرار المتباعد</span>
+        <h2>بطاقات التذكر الذكية (Flashcards)</h2>
+        <p>اقلب البطاقة لاختبار ذاكرتك، وصنف البطاقات لتركز على ما لم تحفظه بعد!</p>
+        
+        <div class="flashcards-filter-bar">
+          <label>اختر المحاضرة:</label>
+          <select id="flashcard-lecture-filter">
+            <option value="all">جميع المحاضرات (المنهج كاملاً)</option>
+            <option value="lec1">المحاضرة 1: The ML Landscape</option>
+            <option value="lec2">المحاضرة 2: End-to-End Project</option>
+            <option value="lec3">المحاضرة 3: Classification</option>
+            <option value="lec4">المحاضرة 4: Training Models</option>
+          </select>
+
+          <div class="flashcards-counter">
+            بطاقة <span id="current-card-num">1</span> من <span id="total-cards-num">0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard-stage">
+        <div class="flashcard-container" id="flashcard-element" onclick="flipFlashcard()">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <div class="card-tag" id="card-tag-front">المحاضرة 1</div>
+              <div class="card-content" id="card-question-text">السؤال يظهر هنا...</div>
+              <div class="card-hint">👆 اضغط على البطاقة لقلبها ورؤية الإجابة النموذجية</div>
+            </div>
+            <div class="flashcard-back">
+              <div class="card-tag">الإجابة والشرح الحفظي</div>
+              <div class="card-content" id="card-answer-text">الإجابة النموذجية تظهر هنا...</div>
+              <div class="card-hint">🔄 اضغط مرة أخرى للعودة للسؤال</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard-controls">
+          <button class="btn btn-outline" onclick="prevFlashcard()">➡️ البطاقة السابقة</button>
+          <button class="btn btn-danger" onclick="markCardMastery(false)">❌ أحتاج لمراجعتها</button>
+          <button class="btn btn-success" onclick="markCardMastery(true)">✅ حفظتها بإتقان</button>
+          <button class="btn btn-outline" onclick="nextFlashcard()">البطاقة التالية ⬅️</button>
+        </div>
+
+        <div class="flashcards-mastery-status">
+          <span>حفظت بنجاح: <strong id="mastered-count" class="text-success">0</strong></span>
+          <span>•</span>
+          <span>قيد المراجعة: <strong id="review-count" class="text-danger">0</strong></span>
+          <button class="btn-text-only" onclick="resetFlashcardsProgress()">إعادة تصفير البطاقات</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB: INTERACTIVE LAB ==================== -->
+    <section id="tab-lab" class="tab-pane">
+      <div class="tool-view-header">
+        <span class="tool-badge">🧪 المختبر التفاعلي الذكي</span>
+        <h2>المحاكيات العملية ومختبر الحسابات</h2>
+        <p>جرب بنفسك تحريك الأرقام والمعاملات لتكتسب الفهم والحدس الرياضي والعملي للمفاهيم</p>
+      </div>
+
+      <div class="lab-tabs-nav">
+        <button class="lab-nav-btn active" onclick="switchLabTab('conf-matrix-sim')">📊 حاسبة مصفوفة الارتباك الشاملة (10 مقاييس)</button>
+        <button class="lab-nav-btn" onclick="switchLabTab('gd-sim')">📉 محاكي التدرج التنازلي ومعدل التعلم ($\eta$)</button>
+        <button class="lab-nav-btn" onclick="switchLabTab('algo-selector')">🧭 الموجه الذكي لاختيار خوارزمية الانحدار</button>
+      </div>
+
+      <!-- Lab 1: Confusion Matrix Calculator -->
+      <div id="lab-conf-matrix-sim" class="lab-content active">
+        <div class="lab-intro-box">
+          <h4>مصفوفة الارتباك ومقاييس الأداء الـ 10 المقررة في المحاضرة 3</h4>
+          <p>أدخل قيم (TP, FP, FN, TN) أو اضغط على أحد الأمثلة الجاهزة لحساب كافة المعادلات العشرة خطوة بخطوة بالتعويض الرياضي التلقائي!</p>
+          <div class="presets-row">
+            <span>أمثلة جاهزة:</span>
+            <button class="btn-preset" onclick="setConfusionPreset(4096, 1522, 1325, 53057)">مثال MNIST (كاشف 5 في السلايد)</button>
+            <button class="btn-preset" onclick="setConfusionPreset(100, 20, 10, 870)">فحص طبي عالي الدقة</button>
+            <button class="btn-preset" onclick="setConfusionPreset(50, 0, 0, 950)">مصنف مثالي (Perfect)</button>
+            <button class="btn-preset" onclick="setConfusionPreset(10, 90, 0, 900)">بيانات غير متوازنة (Skewed)</button>
+          </div>
+        </div>
+
+        <div class="conf-matrix-workspace">
+          <!-- Inputs Card -->
+          <div class="conf-matrix-input-box">
+            <h4>إدخال عناصر المصفوفة (2 × 2)</h4>
+            <div class="matrix-grid-input">
+              <div class="matrix-cell-input cell-tp">
+                <label>TP (موجب حقيقي)</label>
+                <input type="number" id="input-tp" value="4096" min="0" oninput="calculateMetrics()">
+                <small>Actual: Positive | Pred: Positive</small>
+              </div>
+              <div class="matrix-cell-input cell-fp">
+                <label>FP (موجب كاذب - Type I)</label>
+                <input type="number" id="input-fp" value="1522" min="0" oninput="calculateMetrics()">
+                <small>Actual: Negative | Pred: Positive</small>
+              </div>
+              <div class="matrix-cell-input cell-fn">
+                <label>FN (سالب كاذب - Type II)</label>
+                <input type="number" id="input-fn" value="1325" min="0" oninput="calculateMetrics()">
+                <small>Actual: Positive | Pred: Negative</small>
+              </div>
+              <div class="matrix-cell-input cell-tn">
+                <label>TN (سالب حقيقي)</label>
+                <input type="number" id="input-tn" value="53057" min="0" oninput="calculateMetrics()">
+                <small>Actual: Negative | Pred: Negative</small>
+              </div>
+            </div>
+            <div class="matrix-summary-counts">
+              <div>إجمالي العينات (Total $m$): <strong id="val-total-m">60,000</strong></div>
+              <div>العينات الإيجابية الحقيقية ($P = TP + FN$): <strong id="val-pos-actual">5,421</strong></div>
+              <div>العينات السلبية الحقيقية ($N = FP + TN$): <strong id="val-neg-actual">54,579</strong></div>
+            </div>
+          </div>
+
+          <!-- Dynamic Calculations Output -->
+          <div class="conf-matrix-results-box">
+            <h4>النتائج الحسابية الفورية (معادلات السلايدات الرسمية)</h4>
+            <div class="metrics-results-grid" id="metrics-results-container">
+              <!-- Dynamically filled by app.js calculateMetrics() -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lab 2: Gradient Descent Visualizer -->
+      <div id="lab-gd-sim" class="lab-content">
+        <div class="lab-intro-box">
+          <h4>محاكي التدرج التنازلي التفاعلي (Gradient Descent Simulator)</h4>
+          <p>شاهد كيف يؤثر معدل التعلم (Learning Rate $\eta$) على مسار النموذج في دالة التكلفة المحدبة (Convex Cost Function). لاحظ كيف يتصرف النموذج عند معدل صغير جداً، مثالي، أو كبير جداً!</p>
+        </div>
+
+        <div class="gd-sim-workspace">
+          <div class="sim-controls-panel">
+            <div class="control-group">
+              <label>معدل التعلم (Learning Rate $\eta$): <strong id="lr-val-display">0.1</strong></label>
+              <input type="range" id="gd-lr-slider" min="0.01" max="1.1" step="0.01" value="0.1" oninput="updateGDSim()">
+              <div class="lr-presets">
+                <button class="btn-preset" onclick="setGDSimLR(0.02)">بطيء جداً (0.02)</button>
+                <button class="btn-preset" onclick="setGDSimLR(0.1)">متوازن ومثالي (0.1)</button>
+                <button class="btn-preset" onclick="setGDSimLR(0.95)">كبير متباعد (0.95)</button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label>نوع التدرج التنازلي:</label>
+              <select id="gd-type-select" onchange="updateGDSim()">
+                <option value="batch">1. Batch Gradient Descent (مسار ناعم مباشر)</option>
+                <option value="sgd">2. Stochastic GD (تذبذب عشوائي وتشتت)</option>
+                <option value="minibatch">3. Mini-batch GD (وسطي بينهما)</option>
+              </select>
+            </div>
+
+            <div class="sim-actions">
+              <button class="btn btn-primary" onclick="runGDSimAnimation()">▶️ تشغيل النزول خطوة بخطوة</button>
+              <button class="btn btn-outline" onclick="resetGDSim()">🔄 إعادة ضبط</button>
+            </div>
+
+            <div class="sim-status-box" id="gd-status-text">
+              الحالة: جاهز للمحاكاة.
+            </div>
+          </div>
+
+          <div class="sim-canvas-panel">
+            <svg id="gd-canvas" viewBox="0 0 600 350">
+              <!-- Visualized via SVG in app.js -->
+            </svg>
+            <div class="canvas-legend">
+              <span class="legend-item"><span class="legend-color color-curve"></span> دالة التكلفة (Cost Function $J(\theta)$)</span>
+              <span class="legend-item"><span class="legend-color color-path"></span> مسار المعاملات ($\theta$)</span>
+              <span class="legend-item"><span class="legend-color color-min"></span> القاع الأدنى (Global Minimum $\hat{\theta}$)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lab 3: Algorithm Decision Matrix -->
+      <div id="lab-algo-selector" class="lab-content">
+        <div class="lab-intro-box">
+          <h4>الموجه الذكي لاختيار خوارزمية الانحدار (المحاضرة 4)</h4>
+          <p>حدد مواصفات مسألتك وحجم بياناتك، وسيقوم الموجه بتطبيق جدول المقارنة الرسمي للسلايد 34 لتحديد الخوارزمية المثالية وشرح السبب والتعقيد الحسابي!</p>
+        </div>
+
+        <div class="selector-form-card">
+          <div class="form-row">
+            <div class="form-col">
+              <label>عدد العينات التدريبية ($m$ Instances):</label>
+              <select id="sel-m" onchange="evaluateAlgorithmChoice()">
+                <option value="small">صغير إلى متوسط (&lt; 100,000 عينة - تتسع في الذاكرة)</option>
+                <option value="huge">ضخم جداً (&gt; 1,000,000 عينة - Out-of-core مطلوب)</option>
+              </select>
+            </div>
+
+            <div class="form-col">
+              <label>عدد الخصائص ($n$ Features):</label>
+              <select id="sel-n" onchange="evaluateAlgorithmChoice()">
+                <option value="small">قليل إلى متوسط (&lt; 1,000 خاصية)</option>
+                <option value="huge">كبير جداً (&gt; 100,000 خاصية)</option>
+              </select>
+            </div>
+
+            <div class="form-col">
+              <label>هل قمت بتحجيم الخصائص (Feature Scaling)؟</label>
+              <select id="sel-scaling" onchange="evaluateAlgorithmChoice()">
+                <option value="yes">نعم، تم استخدام StandardScaler / MinMaxScaler</option>
+                <option value="no">لا، الخصائص بمقاييس مختلفة تماماً</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="algo-recommendation-card" id="algo-recommendation-box">
+            <!-- Dynamically populated in app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB: EXAM SIMULATOR ==================== -->
+    <section id="tab-exam" class="tab-pane">
+      <div class="exam-wrapper">
+        <div class="exam-intro-screen" id="exam-intro-screen">
+          <div class="exam-hero">
+            <div class="exam-badge">🏆 الاختبار التقييمي النهائي الشامل</div>
+            <h2>محاكي امتحان تعلم الآلة والتعرف على الأنماط</h2>
+            <p>اختبار شامل يحاكي نمط أسئلة امتحانات الجامعات (الاختيار من متعدد، صح وخطأ، حسابات رياضية، وسيناريوهات برمجية تطبيقية) يغطي المحاضرات الأربع بالكامل بدقة متناهية.</p>
+            
+            <div class="exam-specs-grid">
+              <div class="spec-card">
+                <span class="spec-icon">⏱️</span>
+                <span class="spec-title">الوقت المحدد</span>
+                <span class="spec-val">40 دقيقة</span>
+              </div>
+              <div class="spec-card">
+                <span class="spec-icon">❓</span>
+                <span class="spec-title">عدد الأسئلة</span>
+                <span class="spec-val">30 سؤالاً منتقى</span>
+              </div>
+              <div class="spec-card">
+                <span class="spec-icon">🎯</span>
+                <span class="spec-title">درجة النجاح</span>
+                <span class="spec-val">75% فأعلى</span>
+              </div>
+              <div class="spec-card">
+                <span class="spec-icon">📜</span>
+                <span class="spec-title">المكافأة</span>
+                <span class="spec-val">شهادة إتقان رقمية</span>
+              </div>
+            </div>
+
+            <div class="exam-start-actions">
+              <button class="btn btn-exam-start" onclick="startComprehensiveExam()">🚀 ابدأ الامتحان الشامل الآن</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Exam Board -->
+        <div class="exam-live-board hidden" id="exam-live-screen">
+          <div class="exam-top-bar">
+            <div class="exam-progress-info">
+              سؤال <span id="exam-q-current">1</span> من <span id="exam-q-total">30</span>
+            </div>
+            <div class="exam-timer-badge">
+              <span>الوقت المتبقي:</span>
+              <strong id="exam-timer-display">40:00</strong>
+            </div>
+            <button class="btn btn-sm btn-outline-danger" onclick="confirmEndExam()">إنهاء وتسليم الامتحان</button>
+          </div>
+
+          <div class="exam-question-card" id="exam-active-question-card">
+            <!-- Injected by app.js -->
+          </div>
+
+          <div class="exam-nav-footer">
+            <button class="btn btn-outline" id="exam-prev-btn" onclick="navExamQuestion(-1)">السابق</button>
+            <div class="exam-questions-bullets" id="exam-bullets-container"></div>
+            <button class="btn btn-primary" id="exam-next-btn" onclick="navExamQuestion(1)">التالي</button>
+          </div>
+        </div>
+
+        <!-- Exam Result Screen -->
+        <div class="exam-result-screen hidden" id="exam-result-screen">
+          <!-- Populated by app.js on finish -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal for Section Quiz -->
+  <div class="modal-overlay hidden" id="quiz-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="quiz-badge">📝 كويز قياس الفهم الفوري</span>
+          <h3 id="modal-quiz-title">اختبار الجزئية</h3>
+        </div>
+        <button class="close-modal-btn" onclick="closeQuizModal()">&times;</button>
+      </div>
+
+      <div class="modal-body" id="modal-quiz-body">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- Scripts -->
+  <script src="lectures-data.js"></script>
+  <script src="quiz-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
